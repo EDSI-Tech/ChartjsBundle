@@ -8,16 +8,16 @@
 
 namespace fados\ChartjsBundle\Model;
 
-use fados\ChartjsBundle\Utils\TypeCharjs;
+use fados\ChartjsBundle\Utils\TypeChartjs;
 
-class ChartBuiderData
+class ChartBuilderData
 {
 
     const HEIGHT = '150px';
     const WIDTH  = '400px';
 
     /**
-     * @var TypeCharjs
+     * @var TypeChartjs
      */
     protected $type;
 
@@ -62,7 +62,7 @@ class ChartBuiderData
     protected $backgroundOpacity;
 
     /**
-     * @var string
+     * @var array
      */
     protected $bordercolor;
 
@@ -81,19 +81,22 @@ class ChartBuiderData
      */
     protected $height;
 
+    /** @var string */
+    protected $color;
+
     /**
-     * ChartBuiderData constructor.
+     * ChartBuilderData constructor.
      */
     public function __construct()
     {
-        $this->height = ChartBuiderData::HEIGHT;
-        $this->width= ChartBuiderData::WIDTH;
+        $this->height            = ChartBuilderData::HEIGHT;
+        $this->width             = ChartBuilderData::WIDTH;
         $this->backgroundOpacity = 0.2;
     }
 
 
     /**
-     * @return TypeCharjs
+     * @return string
      */
     public function getType()
     {
@@ -101,11 +104,14 @@ class ChartBuiderData
     }
 
     /**
-     * @param TypeCharjs $type
+     * @param string $type
+     * @return ChartBuilderData
      */
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -118,10 +124,13 @@ class ChartBuiderData
 
     /**
      * @param array $data
+     * @return ChartBuilderData
      */
     public function setData($data)
     {
         $this->data = $data;
+
+        return $this;
     }
 
     /**
@@ -134,10 +143,13 @@ class ChartBuiderData
 
     /**
      * @param array $labels
+     * @return ChartBuilderData
      */
     public function setLabels($labels)
     {
         $this->labels = $labels;
+
+        return $this;
     }
 
     /**
@@ -149,15 +161,18 @@ class ChartBuiderData
     }
 
     /**
-     * @param array $config
+     * @param string $config
+     * @return ChartBuilderData
      */
     public function setConfig($config)
     {
         $this->config = $config;
+
+        return $this;
     }
 
     /**
-     * @return json
+     * @return string
      */
     public function getOptions()
     {
@@ -165,11 +180,14 @@ class ChartBuiderData
     }
 
     /**
-     * @param json $options
+     * @param string $options
+     * @return ChartBuilderData
      */
     public function setOptions($options)
     {
         $this->options = $options;
+
+        return $this;
     }
 
     /**
@@ -182,10 +200,13 @@ class ChartBuiderData
 
     /**
      * @param string $label
+     * @return ChartBuilderData
      */
     public function setLabel($label)
     {
         $this->label = $label;
+
+        return $this;
     }
 
     /**
@@ -198,14 +219,17 @@ class ChartBuiderData
 
     /**
      * @param string $color
+     * @return ChartBuilderData
      */
     public function setColor($color)
     {
         $this->color = $color;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getBordercolor()
     {
@@ -213,11 +237,14 @@ class ChartBuiderData
     }
 
     /**
-     * @param string $bordercolor
+     * @param array $bordercolor
+     * @return ChartBuilderData
      */
     public function setBordercolor($bordercolor)
     {
         $this->bordercolor = $bordercolor;
+
+        return $this;
     }
 
     /**
@@ -230,10 +257,13 @@ class ChartBuiderData
 
     /**
      * @param array $backgroundcolor
+     * @return ChartBuilderData
      */
     public function setBackgroundcolor($backgroundcolor)
     {
         $this->backgroundcolor = $backgroundcolor;
+
+        return $this;
     }
 
     /**
@@ -245,11 +275,14 @@ class ChartBuiderData
     }
 
     /**
-     * @param array $width
+     * @param string $width
+     * @return ChartBuilderData
      */
     public function setWidth($width)
     {
         $this->width = $width;
+
+        return $this;
     }
 
     /**
@@ -261,11 +294,14 @@ class ChartBuiderData
     }
 
     /**
-     * @param array $height
+     * @param $height
+     * @return $this
      */
     public function setHeight($height)
     {
         $this->height = $height;
+
+        return $this;
     }
 
     /**
@@ -278,10 +314,13 @@ class ChartBuiderData
 
     /**
      * @param int $backgroundOpacity
+     * @return ChartBuilderData
      */
     public function setBackgroundOpacity($backgroundOpacity)
     {
         $this->backgroundOpacity = $backgroundOpacity;
+
+        return $this;
     }
 
     /**
@@ -294,14 +333,17 @@ class ChartBuiderData
 
     /**
      * @param string $title
+     * @return ChartBuilderData
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
-     * @return json
+     * @return string
      */
     public function getDatasetConfig()
     {
@@ -309,30 +351,33 @@ class ChartBuiderData
     }
 
     /**
-     * @param json $datasetConfig
+     * @param string $datasetConfig
+     * @return ChartBuilderData
      */
     public function setDatasetConfig($datasetConfig)
     {
         $this->datasetConfig = $datasetConfig;
+
+        return $this;
     }
 
-    public function toArray() {
-        return array(
-            'type'              =>$this->type,
-            'title'             =>$this->title,
+    public function toArray()
+    {
+        return [
+            'type'              => $this->type,
+            'title'             => $this->title,
             'data'              => $this->data,
             'labels'            => $this->labels,
             'label'             => $this->label,
-            'bordercolor'       =>  $this->bordercolor,
+            'bordercolor'       => $this->bordercolor,
             'backgroundcolor'   => $this->backgroundcolor,
             'options'           => $this->options,
             'height'            => $this->height,
             'width'             => $this->width,
             'backgroundOpacity' => $this->backgroundOpacity,
-            'datasetConfig'     => $this->datasetConfig
-        );
+            'datasetConfig'     => $this->datasetConfig,
+        ];
     }
-
 
 
 }

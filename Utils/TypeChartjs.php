@@ -8,7 +8,7 @@ namespace fados\ChartjsBundle\Utils;
  * Date: 3/8/2017
  * Time: 13:50
  */
-class TypeCharjs
+class TypeChartjs
 {
     const CHARJS_BAR = 'bar';
     const CHARJS_HORIZONTALBAR = 'horizontalBar';
