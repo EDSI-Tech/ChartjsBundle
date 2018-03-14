@@ -333,7 +333,7 @@ class ChartBuilderData
 
     /**
      * @param string $title
-     * @return ChartBuilderData
+     * @return $this
      */
     public function setTitle($title)
     {
