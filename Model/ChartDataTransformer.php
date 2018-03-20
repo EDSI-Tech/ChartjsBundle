@@ -2,10 +2,10 @@
 
 namespace fados\ChartjsBundle\Model;
 
-use fados\ChartjsBundle\Utils\TypeCharjs;
+use fados\ChartjsBundle\Utils\TypeChartjs;
 use fados\ChartjsBundle\Utils\TypeColors;
 use fados\ChartjsBundle\Model\Transformer\TransformerInterface;
-use fados\ChartjsBundle\Model\ChartBuiderData;
+use fados\ChartjsBundle\Model\ChartBuilderData;
 
 
 /**
@@ -35,7 +35,7 @@ class ChartDataTransformer  implements TransformerInterface
     public function __construct()
     {
         $this->result = array();
-        $this->chartBuilderData = new ChartBuiderData();
+        $this->chartBuilderData = new ChartBuilderData();
     }
 
     public function transform($type,$data,$fieldLabels,$fieldKpi,$options,$fieldData) {
@@ -47,11 +47,11 @@ class ChartDataTransformer  implements TransformerInterface
         $this->type = $type;
 
 
-        if ($this->type==TypeCharjs::CHARJS_BAR ||
-            $this->type==TypeCharjs::CHARJS_LINE ||
-            $this->type==TypeCharjs::CHARJS_HORIZONTALBAR ||
-            $this->type==TypeCharjs::CHARJS_PIE ||
-            $this->type==TypeCharjs::CHARJS_DOUGHNUT ) {
+        if ($this->type==TypeChartjs::CHARJS_BAR ||
+            $this->type==TypeChartjs::CHARJS_LINE ||
+            $this->type==TypeChartjs::CHARJS_HORIZONTALBAR ||
+            $this->type==TypeChartjs::CHARJS_PIE ||
+            $this->type==TypeChartjs::CHARJS_DOUGHNUT ) {
             $this->toArray();
         };
 
@@ -92,8 +92,8 @@ class ChartDataTransformer  implements TransformerInterface
         $color = new TypeColors();
         $dataFieldColor = ChartDataTransformer::data;
 
-        if ($this->type==TypeCharjs::CHARJS_PIE ||
-            $this->type==TypeCharjs::CHARJS_DOUGHNUT) {
+        if ($this->type==TypeChartjs::CHARJS_PIE ||
+            $this->type==TypeChartjs::CHARJS_DOUGHNUT) {
             $dataFieldColor = ChartDataTransformer::labels;
         };
         $this->result[ChartDataTransformer::backgroundColor] = array();

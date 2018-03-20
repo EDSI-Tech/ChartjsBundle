@@ -2,7 +2,7 @@
 
 namespace fados\ChartjsBundle\Model;
 
-use fados\ChartjsBundle\Utils\TypeCharjs;
+use fados\ChartjsBundle\Utils\TypeChartjs;
 
 class ChartData
 {
@@ -11,7 +11,7 @@ class ChartData
     const WIDTH  = '400px';
 
     /**
-     * @var TypeCharjs
+     * @var TypeChartjs
      */
     protected $type;
 
@@ -85,18 +85,18 @@ class ChartData
 
 
     /**
-     * ChartBuiderData constructor.
+     * ChartBuilderData constructor.
      * @param array $datasets
      */
     public function __construct()
     {
         $this->datasets = array();
-        $this->height = ChartBuiderData::HEIGHT;
-        $this->width= ChartBuiderData::WIDTH;
+        $this->height = ChartBuilderData::HEIGHT;
+        $this->width= ChartBuilderData::WIDTH;
     }
 
     /**
-     * ChartBuiderData constructor.
+     * ChartBuilderData constructor.
      * @param array $datasets
      */
     public function addDataset($dataset) {
@@ -104,7 +104,7 @@ class ChartData
     }
 
     /**
-     * @return ChartBuiderData
+     * @return ChartBuilderData
      */
     public function getDatasets()
     {
@@ -112,7 +112,7 @@ class ChartData
     }
 
     /**
-     * @return TypeCharjs
+     * @return TypeChartjs
      */
     public function getType()
     {
@@ -120,7 +120,7 @@ class ChartData
     }
 
     /**
-     * @param TypeCharjs $type
+     * @param TypeChartjs $type
      */
     public function setType($type)
     {

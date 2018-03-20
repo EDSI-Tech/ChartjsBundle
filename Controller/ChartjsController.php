@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use fados\ChartjsBundle\Model\ChartBuiderData;
-use fados\ChartjsBundle\Utils\TypeCharjs;
+use fados\ChartjsBundle\Model\ChartBuilderData;
+use fados\ChartjsBundle\Utils\TypeChartjs;
 use fados\ChartjsBundle\Utils\TypeColors;
 use fados\ChartjsBundle\Model\ChartData;
 
@@ -21,8 +21,8 @@ class ChartjsController extends Controller
     public function barAction()
     {
 
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_BAR);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
           array(
@@ -53,8 +53,8 @@ class ChartjsController extends Controller
     public function stackedBarAction()
     {
 
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_BAR);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -107,8 +107,8 @@ class ChartjsController extends Controller
 
     public function horizontalBarAction()
     {
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_HORIZONTALBAR);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_HORIZONTALBAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -137,8 +137,8 @@ class ChartjsController extends Controller
 
     public function pieAction()
     {
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_PIE);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_PIE);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -174,8 +174,8 @@ class ChartjsController extends Controller
 
     public function radarAction()
     {
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_RADAR);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_RADAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -204,8 +204,8 @@ class ChartjsController extends Controller
 
     public function doughnutAction()
     {
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_DOUGHNUT);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_DOUGHNUT);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -241,8 +241,8 @@ class ChartjsController extends Controller
 
     public function lineAction()
     {
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_LINE);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_LINE);
         $grafica->setLabels(array('Gener','Febrer','Mar','Abril','Maig','Juny','Juliol'));
         $grafica->setData(
             array(
@@ -278,8 +278,8 @@ class ChartjsController extends Controller
 
     public function polarAreaAction()
     {
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_POLAR_AREA);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_POLAR_AREA);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -317,8 +317,8 @@ class ChartjsController extends Controller
     public function comboTestAction()
     {
         $chartData = new ChartData();
-        $grafica = new ChartBuiderData();
-        $grafica->setType(TypeCharjs::CHARJS_LINE);
+        $grafica = new ChartBuilderData();
+        $grafica->setType(TypeChartjs::CHARJS_LINE);
         $grafica->setLabels(array('Gener','Febrer','Mar','Abril','Maig','Juny','Juliol'));
         $grafica->setData(
             array(
@@ -353,7 +353,7 @@ class ChartjsController extends Controller
 
         $chartData->addDataset($grafica->toArray());
 
-        $grafica->setType(TypeCharjs::CHARJS_BAR);
+        $grafica->setType(TypeChartjs::CHARJS_BAR);
         $grafica->setBackgroundcolor(
             array(
                 TypeColors::blue,
@@ -369,7 +369,7 @@ class ChartjsController extends Controller
         $chartData->addDataset($grafica->toArray());
         $chartData->setHeight('150px');
         $chartData->setWidth('500px');
-        $chartData->setType(TypeCharjs::CHARJS_BAR);
+        $chartData->setType(TypeChartjs::CHARJS_BAR);
 
         return $this->render('ChartjsBundle:test:testChart.html.twig',array('grafica'=>$chartData,'title'=>'Combo Chart'));
     }

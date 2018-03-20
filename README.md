@@ -89,10 +89,10 @@ You could only add the javascript or use an extension twig, in the template wher
 
 The first parameter is the Canvas id, its mandatory and must be unique, canvas Width, anvas Height and an array, graphicChart, with an special structure.
 
-Array structure for building charts (fados\ChartjsBundle\Model\ChartBuiderData).
+Array structure for building charts (fados\ChartjsBundle\Model\ChartBuilderData).
 Sample:
 ```
-        $graphicChart = new ChartBuiderData();
+        $graphicChart = new ChartBuilderData();
         $graphicChart->setType(TypeCharjs::CHARJS_BAR);
         $graphicChart->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $graphicChart->setData(
@@ -135,7 +135,7 @@ Controller will be:
 
 ```
  public function barAction()   {
-        $grafica = new ChartBuiderData();
+        $grafica = new ChartBuilderData();
         $grafica->setType(TypeCharjs::CHARJS_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
