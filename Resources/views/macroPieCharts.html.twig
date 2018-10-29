@@ -8,7 +8,7 @@
         label: '{{  key }}',
         data: {{data | json_encode() | raw  }},
         backgroundColor: [
-            {% for data in graphic.backgroundcolor %}
+            {% for data in graphic.backgroundColor %}
                 "rgba({{ data }},{{ graphic.backgroundOpacity }})",
             {% endfor %}
         ],

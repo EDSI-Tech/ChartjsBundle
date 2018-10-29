@@ -14,8 +14,8 @@
                 type: '{{ dataset.type }}',
                 label: '{{ key }}',
                 data: {{ data | json_encode() | raw }},
-                backgroundColor: "rgba({{ dataset.backgroundcolor[loop.index-1] }},{{ dataset.backgroundOpacity }})",
-                borderColor: "rgba({{ dataset.backgroundcolor[loop.index-1] }},1)",
+                backgroundColor: "rgba({{ dataset.backgroundColor[loop.index-1] }},{{ dataset.backgroundOpacity }})",
+                borderColor: "rgba({{ dataset.borderColor[loop.index-1] }},1)",
                 {{ dataset.datasetConfig |raw }}
                 borderWidth: 1
                 },
@@ -27,11 +27,11 @@
             {
             label: '{{ key }}',
             data: {{ data | json_encode() | raw }},
-            {% if graphic.backgroundcolor[loop.index-1] is defined %}
-                backgroundColor: "rgba({{ graphic.backgroundcolor[loop.index-1] }}{% if graphic.backgroundOpacity is defined %},{{ graphic.backgroundOpacity }}{% endif %})",
+            {% if graphic.backgroundColor[loop.index-1] is defined %}
+                backgroundColor: "rgba({{ graphic.backgroundColor[loop.index-1] }}{% if graphic.backgroundOpacity is defined %},{{ graphic.backgroundOpacity }}{% endif %})",
             {% endif %}
-            {% if graphic.bordercolor[loop.index-1] is defined %}
-                borderColor: "rgba({{ graphic.bordercolor[loop.index-1] }},1)",
+            {% if graphic.borderColor[loop.index-1] is defined %}
+                borderColor: "rgba({{ graphic.borderColor[loop.index-1] }},1)",
             {% endif %}
             {{ graphic.datasetConfig |raw }}
             borderWidth: 1

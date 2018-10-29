@@ -2,14 +2,14 @@
 
 namespace fados\ChartjsBundle\Controller;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
+use fados\ChartjsBundle\Model\Chart;
+use fados\ChartjsBundle\Model\ChartBuilder;
+use fados\ChartjsBundle\Utils\ChartColor;
+use fados\ChartjsBundle\Utils\ChartType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use fados\ChartjsBundle\Model\ChartBuilderData;
-use fados\ChartjsBundle\Utils\ChartType;
-use fados\ChartjsBundle\Utils\ChartColor;
-use fados\ChartjsBundle\Model\ChartData;
 
 class ChartjsController extends Controller
 {
@@ -21,7 +21,7 @@ class ChartjsController extends Controller
     public function barAction()
     {
 
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -53,7 +53,7 @@ class ChartjsController extends Controller
     public function stackedBarAction()
     {
 
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -107,7 +107,7 @@ class ChartjsController extends Controller
 
     public function horizontalBarAction()
     {
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_BAR_HORIZONTAL);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -137,7 +137,7 @@ class ChartjsController extends Controller
 
     public function pieAction()
     {
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_PIE);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -174,7 +174,7 @@ class ChartjsController extends Controller
 
     public function radarAction()
     {
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_RADAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -204,7 +204,7 @@ class ChartjsController extends Controller
 
     public function doughnutAction()
     {
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_DOUGHNUT);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -241,7 +241,7 @@ class ChartjsController extends Controller
 
     public function lineAction()
     {
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_LINE);
         $grafica->setLabels(array('Gener','Febrer','Mar','Abril','Maig','Juny','Juliol'));
         $grafica->setData(
@@ -278,7 +278,7 @@ class ChartjsController extends Controller
 
     public function polarAreaAction()
     {
-        $grafica = new ChartBuilderData();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_POLAR_AREA);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
@@ -316,8 +316,8 @@ class ChartjsController extends Controller
 
     public function comboTestAction()
     {
-        $chartData = new ChartData();
-        $grafica = new ChartBuilderData();
+        $chartData = new Chart();
+        $grafica = new ChartBuilder();
         $grafica->setType(ChartType::CT_LINE);
         $grafica->setLabels(array('Gener','Febrer','Mar','Abril','Maig','Juny','Juliol'));
         $grafica->setData(
