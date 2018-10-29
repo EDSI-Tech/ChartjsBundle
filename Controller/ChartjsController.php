@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use fados\ChartjsBundle\Model\ChartBuilderData;
-use fados\ChartjsBundle\Utils\TypeChartjs;
-use fados\ChartjsBundle\Utils\TypeColors;
+use fados\ChartjsBundle\Utils\ChartType;
+use fados\ChartjsBundle\Utils\ChartColor;
 use fados\ChartjsBundle\Model\ChartData;
 
 class ChartjsController extends Controller
@@ -22,7 +22,7 @@ class ChartjsController extends Controller
     {
 
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_BAR);
+        $grafica->setType(ChartType::CT_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
           array(
@@ -31,14 +31,14 @@ class ChartjsController extends Controller
           ));
           $grafica->setBackgroundcolor(
               array(
-                  TypeColors::aqua,
-                  TypeColors::dark_green
+                  ChartColor::aqua,
+                  ChartColor::dark_green
               )
           );
           $grafica->setBordercolor(
                 array(
-                    TypeColors::aqua,
-                    TypeColors::dark_green
+                    ChartColor::aqua,
+                    ChartColor::dark_green
 
                 )
           );
@@ -54,7 +54,7 @@ class ChartjsController extends Controller
     {
 
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_BAR);
+        $grafica->setType(ChartType::CT_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -65,16 +65,16 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::aqua,
-                TypeColors::dark_green,
-                TypeColors::red
+                ChartColor::aqua,
+                ChartColor::dark_green,
+                ChartColor::red
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::aqua,
-                TypeColors::dark_green,
-                TypeColors::red
+                ChartColor::aqua,
+                ChartColor::dark_green,
+                ChartColor::red
 
             )
         );
@@ -108,7 +108,7 @@ class ChartjsController extends Controller
     public function horizontalBarAction()
     {
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_HORIZONTALBAR);
+        $grafica->setType(ChartType::CT_BAR_HORIZONTAL);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -117,14 +117,14 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::aqua,
-                TypeColors::dark_green
+                ChartColor::aqua,
+                ChartColor::dark_green
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::aqua,
-                TypeColors::dark_green
+                ChartColor::aqua,
+                ChartColor::dark_green
 
             )
         );
@@ -138,7 +138,7 @@ class ChartjsController extends Controller
     public function pieAction()
     {
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_PIE);
+        $grafica->setType(ChartType::CT_PIE);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -146,24 +146,24 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::dark_violet,
-                TypeColors::dark_green,
-                TypeColors::dark_blue,
-                TypeColors::dark_golden_rod,
-                TypeColors::dark_magenta,
-                TypeColors::dark_olive_green,
-                TypeColors::dark_orange
+                ChartColor::dark_violet,
+                ChartColor::dark_green,
+                ChartColor::dark_blue,
+                ChartColor::dark_golden_rod,
+                ChartColor::dark_magenta,
+                ChartColor::dark_olive_green,
+                ChartColor::dark_orange
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::dark_violet,
-                TypeColors::dark_green,
-                TypeColors::dark_blue,
-                TypeColors::dark_golden_rod,
-                TypeColors::dark_magenta,
-                TypeColors::dark_olive_green,
-                TypeColors::dark_orange
+                ChartColor::dark_violet,
+                ChartColor::dark_green,
+                ChartColor::dark_blue,
+                ChartColor::dark_golden_rod,
+                ChartColor::dark_magenta,
+                ChartColor::dark_olive_green,
+                ChartColor::dark_orange
             )
         );
         $grafica->setHeight('150px');
@@ -175,7 +175,7 @@ class ChartjsController extends Controller
     public function radarAction()
     {
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_RADAR);
+        $grafica->setType(ChartType::CT_RADAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -184,14 +184,14 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::aqua,
-                TypeColors::red
+                ChartColor::aqua,
+                ChartColor::red
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::aqua,
-                TypeColors::red
+                ChartColor::aqua,
+                ChartColor::red
 
             )
         );
@@ -205,7 +205,7 @@ class ChartjsController extends Controller
     public function doughnutAction()
     {
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_DOUGHNUT);
+        $grafica->setType(ChartType::CT_DOUGHNUT);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -213,24 +213,24 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::dark_violet,
-                TypeColors::dark_green,
-                TypeColors::dark_blue,
-                TypeColors::dark_golden_rod,
-                TypeColors::dark_magenta,
-                TypeColors::dark_olive_green,
-                TypeColors::dark_orange
+                ChartColor::dark_violet,
+                ChartColor::dark_green,
+                ChartColor::dark_blue,
+                ChartColor::dark_golden_rod,
+                ChartColor::dark_magenta,
+                ChartColor::dark_olive_green,
+                ChartColor::dark_orange
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::dark_violet,
-                TypeColors::dark_green,
-                TypeColors::dark_blue,
-                TypeColors::dark_golden_rod,
-                TypeColors::dark_magenta,
-                TypeColors::dark_olive_green,
-                TypeColors::dark_orange
+                ChartColor::dark_violet,
+                ChartColor::dark_green,
+                ChartColor::dark_blue,
+                ChartColor::dark_golden_rod,
+                ChartColor::dark_magenta,
+                ChartColor::dark_olive_green,
+                ChartColor::dark_orange
             )
         );
         $grafica->setHeight('150px');
@@ -242,7 +242,7 @@ class ChartjsController extends Controller
     public function lineAction()
     {
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_LINE);
+        $grafica->setType(ChartType::CT_LINE);
         $grafica->setLabels(array('Gener','Febrer','Mar','Abril','Maig','Juny','Juliol'));
         $grafica->setData(
             array(
@@ -250,12 +250,12 @@ class ChartjsController extends Controller
              ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::red,
+                ChartColor::red,
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::red,
+                ChartColor::red,
             )
         );
         $grafica->setHeight('150px');
@@ -279,7 +279,7 @@ class ChartjsController extends Controller
     public function polarAreaAction()
     {
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_POLAR_AREA);
+        $grafica->setType(ChartType::CT_POLAR_AREA);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
             array(
@@ -287,24 +287,24 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::dark_violet,
-                TypeColors::dark_green,
-                TypeColors::dark_blue,
-                TypeColors::dark_golden_rod,
-                TypeColors::dark_magenta,
-                TypeColors::dark_olive_green,
-                TypeColors::dark_orange
+                ChartColor::dark_violet,
+                ChartColor::dark_green,
+                ChartColor::dark_blue,
+                ChartColor::dark_golden_rod,
+                ChartColor::dark_magenta,
+                ChartColor::dark_olive_green,
+                ChartColor::dark_orange
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::dark_violet,
-                TypeColors::dark_green,
-                TypeColors::dark_blue,
-                TypeColors::dark_golden_rod,
-                TypeColors::dark_magenta,
-                TypeColors::dark_olive_green,
-                TypeColors::dark_orange
+                ChartColor::dark_violet,
+                ChartColor::dark_green,
+                ChartColor::dark_blue,
+                ChartColor::dark_golden_rod,
+                ChartColor::dark_magenta,
+                ChartColor::dark_olive_green,
+                ChartColor::dark_orange
             )
         );
         $grafica->setHeight('150px');
@@ -318,7 +318,7 @@ class ChartjsController extends Controller
     {
         $chartData = new ChartData();
         $grafica = new ChartBuilderData();
-        $grafica->setType(TypeChartjs::CHARJS_LINE);
+        $grafica->setType(ChartType::CT_LINE);
         $grafica->setLabels(array('Gener','Febrer','Mar','Abril','Maig','Juny','Juliol'));
         $grafica->setData(
             array(
@@ -326,13 +326,13 @@ class ChartjsController extends Controller
             ));
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::red,
+                ChartColor::red,
             )
         );
         $grafica->setDatasetConfig('fill: false');
         $grafica->setBordercolor(
             array(
-                TypeColors::red,
+                ChartColor::red,
             )
         );
         $grafica->setHeight('150px');
@@ -353,15 +353,15 @@ class ChartjsController extends Controller
 
         $chartData->addDataset($grafica->toArray());
 
-        $grafica->setType(TypeChartjs::CHARJS_BAR);
+        $grafica->setType(ChartType::CT_BAR);
         $grafica->setBackgroundcolor(
             array(
-                TypeColors::blue,
+                ChartColor::blue,
             )
         );
         $grafica->setBordercolor(
             array(
-                TypeColors::blue,
+                ChartColor::blue,
             )
         );
 
@@ -369,7 +369,7 @@ class ChartjsController extends Controller
         $chartData->addDataset($grafica->toArray());
         $chartData->setHeight('150px');
         $chartData->setWidth('500px');
-        $chartData->setType(TypeChartjs::CHARJS_BAR);
+        $chartData->setType(ChartType::CT_BAR);
 
         return $this->render('ChartjsBundle:test:testChart.html.twig',array('grafica'=>$chartData,'title'=>'Combo Chart'));
     }

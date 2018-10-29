@@ -2,8 +2,8 @@
 
 namespace fados\ChartjsBundle\Model;
 
-use fados\ChartjsBundle\Utils\TypeChartjs;
-use fados\ChartjsBundle\Utils\TypeColors;
+use fados\ChartjsBundle\Utils\ChartType;
+use fados\ChartjsBundle\Utils\ChartColor;
 use fados\ChartjsBundle\Model\Transformer\TransformerInterface;
 use fados\ChartjsBundle\Model\ChartBuilderData;
 
@@ -47,11 +47,11 @@ class ChartDataTransformer  implements TransformerInterface
         $this->type = $type;
 
 
-        if ($this->type==TypeChartjs::CHARJS_BAR ||
-            $this->type==TypeChartjs::CHARJS_LINE ||
-            $this->type==TypeChartjs::CHARJS_HORIZONTALBAR ||
-            $this->type==TypeChartjs::CHARJS_PIE ||
-            $this->type==TypeChartjs::CHARJS_DOUGHNUT ) {
+        if ($this->type==ChartType::CT_BAR ||
+            $this->type==ChartType::CT_LINE ||
+            $this->type==ChartType::CT_BAR_HORIZONTAL ||
+            $this->type==ChartType::CT_PIE ||
+            $this->type==ChartType::CT_DOUGHNUT ) {
             $this->toArray();
         };
 
@@ -89,22 +89,22 @@ class ChartDataTransformer  implements TransformerInterface
     */
     public function setBackgroundColors() {
         $index = 0;
-        $color = new TypeColors();
+        $colors = new ChartColor();
         $dataFieldColor = ChartDataTransformer::data;
 
-        if ($this->type==TypeChartjs::CHARJS_PIE ||
-            $this->type==TypeChartjs::CHARJS_DOUGHNUT) {
+        if ($this->type==ChartType::CT_PIE ||
+            $this->type==ChartType::CT_DOUGHNUT) {
             $dataFieldColor = ChartDataTransformer::labels;
         };
         $this->result[ChartDataTransformer::backgroundColor] = array();
 
-        $totalColors = $color->getTotalColors();
+        $totalColors = $colors->count();
         $leapNumber = floor($totalColors/ sizeof($this->result[$dataFieldColor]));
 
 
         foreach ($this->result[$dataFieldColor] as $d) {
-            $this->result[ChartDataTransformer::backgroundColor][] =  $color->getColor($index % $totalColors);
-            $this->result[ChartDataTransformer::bordercolor][] =  $color->getColor($index % $totalColors);
+            $this->result[ChartDataTransformer::backgroundColor][] =  $colors->getColor($index % $totalColors);
+            $this->result[ChartDataTransformer::bordercolor][] =  $colors->getColor($index % $totalColors);
             $index+= $leapNumber;
         }
     }

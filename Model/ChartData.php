@@ -2,7 +2,7 @@
 
 namespace fados\ChartjsBundle\Model;
 
-use fados\ChartjsBundle\Utils\TypeChartjs;
+use fados\ChartjsBundle\Utils\ChartType;
 
 class ChartData
 {
@@ -11,7 +11,7 @@ class ChartData
     const WIDTH  = '400px';
 
     /**
-     * @var TypeChartjs
+     * @var ChartType
      */
     protected $type;
 
@@ -112,7 +112,7 @@ class ChartData
     }
 
     /**
-     * @return TypeChartjs
+     * @return ChartType
      */
     public function getType()
     {
@@ -120,7 +120,7 @@ class ChartData
     }
 
     /**
-     * @param TypeChartjs $type
+     * @param ChartType $type
      */
     public function setType($type)
     {
