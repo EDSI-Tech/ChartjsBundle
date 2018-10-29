@@ -1,5 +1,5 @@
-{% macro printChart(type, graphic) %}
-    type: '{{ type }}',
+{% macro set_up(graphic) %}
+    type: '{{ graphic.type }}',
     data: {
     {% if graphic.datasets is defined %}
         labels: {{ graphic.datasets[0].labels | json_encode() | raw }},

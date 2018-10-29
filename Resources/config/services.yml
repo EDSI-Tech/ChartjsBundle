@@ -6,7 +6,7 @@ parameters:
 
 services:
   app.chartjs.twig_extension:
-       class:  fados\ChartjsBundle\Twig\chartjsExtension
+       class:  fados\ChartjsBundle\Twig\ChartjsExtension
        arguments: ['@service_container']
        public: false
        tags:

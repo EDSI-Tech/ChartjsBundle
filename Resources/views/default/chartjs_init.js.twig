@@ -1,0 +1,11 @@
+{% import "@Chartjs/chartjs_macros.twig" as cjs_macros %}
+{% if graphic.data|length>0 %}
+$(document).ready(function () {
+    {% set ctx_id = graphic.id|replace({'-': '_'}) %}
+    var ctx_{{ ctx_id }} = document.getElementById('{{ graphic.id|raw }}').getContext('2d');
+    //Graphic {{ graphic.type }} - {{ graphic.id|raw }}
+    var chartjs_{{ ctx_id }} = new Chart(ctx_{{ ctx_id }}, {
+        {{ cjs_macros.set_up(graphic) }}
+    });
+});
+{% endif %}

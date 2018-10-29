@@ -23,6 +23,11 @@ class ChartBuilder
     const KEY_BACKGROUND_COLOR = 'backgroundColor';
 
     /**
+     * @var string
+     */
+    protected $id;
+
+    /**
      * @var ChartType
      */
     protected $type;
@@ -95,9 +100,20 @@ class ChartBuilder
      */
     public function __construct()
     {
+        $this->id = "myChart";
         $this->height = ChartBuilder::HEIGHT;
         $this->width = ChartBuilder::WIDTH;
         $this->backgroundOpacity = 0.2;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
 
@@ -381,9 +397,18 @@ class ChartBuilder
         return $this;
     }
 
+    public function isCircular()
+    {
+        if ($this->type == ChartType::CT_PIE || $this->type == ChartType::CT_DOUGHNUT || $this->type == ChartType::CT_POLAR_AREA) {
+            return true;
+        }
+        return false;
+    }
+
     public function toArray()
     {
         return [
+            'id' => $this->id,
             'type' => $this->type,
             'title' => $this->title,
             self::KEY_DATA => $this->data,
