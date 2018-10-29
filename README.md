@@ -1,7 +1,7 @@
 # ChartjsBundle
-Adding charts to symfony 2 using Chart.js 2.4.0
+Adding charts to Symfony using Chart.js
 
-Symfony 2 Bundle that allow us to add charts in our projects, using [Chart.js 2.4.0](http://www.chartjs.org/) library.
+Symfony Bundle that simplifies the usage of [Chart.js 2.7.3](http://www.chartjs.org/) library.
 
 ## How to use it
 
