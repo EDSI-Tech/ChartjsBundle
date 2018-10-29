@@ -60,7 +60,7 @@ Register the routing in `app/config/routing.yml`:
 ``` yml
 # app/config/routing.yml
 
-fados_chartjs:
+chartjs_samples:
     resource: "@ChartjsBundle/Resources/Config/routing.xml"
 ```
 The routing file only have Charts samples
