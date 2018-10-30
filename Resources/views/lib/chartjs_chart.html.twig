@@ -1,0 +1,11 @@
+{% if graphic.data|length>0 %}
+    <script>
+        {% include 'ChartjsBundle:lib:chartjs_config.js.twig' %}
+        {% include 'ChartjsBundle:lib:chartjs_init.js.twig' with [{'graphic':graphic}] %}
+    </script>
+{% else %}
+    <div class="clearfix no-data">
+        <span>{{ 'no.data.found'|trans }}</span>
+    </div>
+{% endif %}
+

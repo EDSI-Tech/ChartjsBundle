@@ -56,8 +56,8 @@ class ChartTransformer implements TransformerInterface
         $this->chartBuilder->setLabels($this->result[ChartBuilder::KEY_LABELS]);
         //$this->chartBuilderData->setConfig($this->config);
         // $this->chartBuilderData->setLabel($this->label);
-        $this->chartBuilder->setBordercolor($this->result[ChartBuilder::KEY_BORDER_COLOR]);
-        $this->chartBuilder->setBackgroundcolor($this->result[ChartBuilder::KEY_BACKGROUND_COLOR]);
+        $this->chartBuilder->setBorderColor($this->result[ChartBuilder::KEY_BORDER_COLOR]);
+        $this->chartBuilder->setBackgroundColor($this->result[ChartBuilder::KEY_BACKGROUND_COLOR]);
 
         return $this->chartBuilder;
 

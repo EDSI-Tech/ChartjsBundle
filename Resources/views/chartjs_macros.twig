@@ -1,4 +1,36 @@
+{% macro set_dataset(graphic, dataset) %}
+    {% for key,data in dataset %}
+        {
+        label: '{{ key }}',
+        data: {{ data | json_encode() | raw }},
+        {% if graphic.isCircular %}
+            backgroundColor: [
+            {% for bgc in graphic.backgroundColor %}
+                "rgba({{ bgc }}{% if graphic.backgroundOpacity is defined %},{{ graphic.backgroundOpacity }}{% endif %})",
+            {% endfor %}
+            ],
+        {% elseif graphic.backgroundColor[loop.index-1] is defined %}
+            backgroundColor: "rgba({{ graphic.backgroundColor[loop.index-1] }}{% if graphic.backgroundOpacity is defined %},{{ graphic.backgroundOpacity }}{% endif %})",
+        {% endif %}
+        {% if graphic.isCircular or graphic.borderColor[loop.index-1] is defined %}
+            {% if graphic.isCircular %}
+                borderColor: [
+                {% for bdc in graphic.borderColor %}
+                    "rgba({{ bdc }}{% if graphic.borderOpacity is defined %},{{ graphic.borderOpacity }}{% endif %})",
+                {% endfor %}
+                ],
+            {% else %}
+                borderColor: "rgba({{ graphic.borderColor[loop.index-1] }},1)",
+            {% endif %}
+            borderWidth: {{ graphic.borderWidth }}{% if graphic.datasetConfig is defined %},{% endif %}
+        {% endif %}
+        {{ graphic.datasetConfig |raw }}
+        }
+    {% endfor %}
+{% endmacro %}
+
 {% macro set_up(graphic) %}
+    {% import _self as macros %}
     type: '{{ graphic.type }}',
     data: {
     {% if graphic.datasets is defined %}
@@ -9,34 +41,10 @@
     datasets: [
     {% if graphic.datasets is defined %}
         {% for dataset in graphic.datasets %}
-            {% for key,data in dataset.data %}
-                {
-                type: '{{ dataset.type }}',
-                label: '{{ key }}',
-                data: {{ data | json_encode() | raw }},
-                backgroundColor: "rgba({{ dataset.backgroundColor[loop.index-1] }},{{ dataset.backgroundOpacity }})",
-                borderColor: "rgba({{ dataset.borderColor[loop.index-1] }},1)",
-                {{ dataset.datasetConfig |raw }}
-                borderWidth: 1
-                },
-            {% endfor %}
+            {{ macros.set_dataset(graphic, dataset) }}{% if not loop.last %},{% endif %}
         {% endfor %}
-
     {% else %}
-        {% for key,data in graphic.data %}
-            {
-            label: '{{ key }}',
-            data: {{ data | json_encode() | raw }},
-            {% if graphic.backgroundColor[loop.index-1] is defined %}
-                backgroundColor: "rgba({{ graphic.backgroundColor[loop.index-1] }}{% if graphic.backgroundOpacity is defined %},{{ graphic.backgroundOpacity }}{% endif %})",
-            {% endif %}
-            {% if graphic.borderColor[loop.index-1] is defined %}
-                borderColor: "rgba({{ graphic.borderColor[loop.index-1] }},1)",
-            {% endif %}
-            {{ graphic.datasetConfig |raw }}
-            borderWidth: 1
-            },
-        {% endfor %}
+        {{ macros.set_dataset(graphic, graphic.data) }}
     {% endif %}
     ]
     },

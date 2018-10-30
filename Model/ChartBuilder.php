@@ -19,77 +19,58 @@ class ChartBuilder
     const KEY_LABELS = 'labels';
     const KEY_LABEL = 'label';
     const KEY_DATA = 'data';
-    const KEY_BORDER_COLOR = 'borderColor';
     const KEY_BACKGROUND_COLOR = 'backgroundColor';
+    const KEY_BACKGROUND_OPACITY = 'backgroundOpacity';
+    const KEY_BORDER_COLOR = 'borderColor';
+    const KEY_BORDER_OPACITY = 'backgroundOpacity';
+    const KEY_BORDER_WIDTH = 'borderWidth';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $id;
 
-    /**
-     * @var ChartType
-     */
+    /** @var ChartType */
     protected $type;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $data;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $labels;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $config;
 
-    /**
-     * @var json
-     */
+    /** @var json */
     protected $options;
 
-    /**
-     * @var json
-     */
+    /** @var json */
     protected $datasetConfig;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $label;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $title;
 
-    /**
-     * @var int
-     */
-    protected $backgroundOpacity;
+    /** @var array */
+    protected $backgroundColor;
 
-    /**
-     * @var array
-     */
-    protected $bordercolor;
+    /** @var int */
+    protected $backgroundOpacity;  // TODO: support array
 
-    /**
-     * @var array
-     */
-    protected $backgroundcolor;
+    /** @var array */
+    protected $borderColor;
 
-    /**
-     * @var array
-     */
+    /** @var array */
+    protected $borderOpacity;  // TODO: support array
+
+    /** @var int */
+    protected $borderWidth;
+
+    /** @var array */
     protected $width;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $height;
 
     /** @var string */
@@ -104,18 +85,25 @@ class ChartBuilder
         $this->height = ChartBuilder::HEIGHT;
         $this->width = ChartBuilder::WIDTH;
         $this->backgroundOpacity = 0.2;
+        $this->borderOpacity = 1;
+        $this->borderWidth = 1;
     }
 
-    public function setId($id)
+    /**
+     * @param $domId
+     */
+    public function setId($domId)
     {
-        $this->id = $id;
+        $this->id = $domId;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
-
 
     /**
      * @return string
@@ -128,7 +116,7 @@ class ChartBuilder
     /**
      * @param string $type
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setType($type)
     {
@@ -148,7 +136,7 @@ class ChartBuilder
     /**
      * @param array $data
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setData($data)
     {
@@ -168,7 +156,7 @@ class ChartBuilder
     /**
      * @param array $labels
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setLabels($labels)
     {
@@ -188,7 +176,7 @@ class ChartBuilder
     /**
      * @param string $config
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setConfig($config)
     {
@@ -208,7 +196,7 @@ class ChartBuilder
     /**
      * @param string $options
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -228,7 +216,7 @@ class ChartBuilder
     /**
      * @param string $label
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setLabel($label)
     {
@@ -248,7 +236,7 @@ class ChartBuilder
     /**
      * @param string $color
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setColor($color)
     {
@@ -260,19 +248,39 @@ class ChartBuilder
     /**
      * @return array
      */
-    public function getBordercolor()
+    public function getBackgroundColor()
     {
-        return $this->bordercolor;
+        return $this->backgroundColor;
     }
 
     /**
-     * @param array $bordercolor
+     * @param array $backgroundColor
      *
-     * @return ChartBuilder
+     * @return $this
      */
-    public function setBordercolor($bordercolor)
+    public function setBackgroundColor($backgroundColor)
     {
-        $this->bordercolor = $bordercolor;
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBackgroundOpacity()
+    {
+        return $this->backgroundOpacity;
+    }
+
+    /**
+     * @param int $backgroundOpacity
+     *
+     * @return $this
+     */
+    public function setBackgroundOpacity($backgroundOpacity)
+    {
+        $this->backgroundOpacity = $backgroundOpacity;
 
         return $this;
     }
@@ -280,19 +288,39 @@ class ChartBuilder
     /**
      * @return array
      */
-    public function getBackgroundcolor()
+    public function getBorderColor()
     {
-        return $this->backgroundcolor;
+        return $this->borderColor;
     }
 
     /**
-     * @param array $backgroundcolor
+     * @param array $borderColor
      *
-     * @return ChartBuilder
+     * @return $this
      */
-    public function setBackgroundcolor($backgroundcolor)
+    public function setBorderColor($borderColor)
     {
-        $this->backgroundcolor = $backgroundcolor;
+        $this->borderColor = $borderColor;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBorderWidth()
+    {
+        return $this->borderWidth;
+    }
+
+    /**
+     * @param int $width
+     *
+     * @return $this
+     */
+    public function setBorderWidth($width)
+    {
+        $this->borderWidth = $width;
 
         return $this;
     }
@@ -308,7 +336,7 @@ class ChartBuilder
     /**
      * @param string $width
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setWidth($width)
     {
@@ -333,26 +361,6 @@ class ChartBuilder
     public function setHeight($height)
     {
         $this->height = $height;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBackgroundOpacity()
-    {
-        return $this->backgroundOpacity;
-    }
-
-    /**
-     * @param int $backgroundOpacity
-     *
-     * @return ChartBuilder
-     */
-    public function setBackgroundOpacity($backgroundOpacity)
-    {
-        $this->backgroundOpacity = $backgroundOpacity;
 
         return $this;
     }
@@ -388,7 +396,7 @@ class ChartBuilder
     /**
      * @param string $datasetConfig
      *
-     * @return ChartBuilder
+     * @return $this
      */
     public function setDatasetConfig($datasetConfig)
     {
@@ -397,6 +405,11 @@ class ChartBuilder
         return $this;
     }
 
+    /**
+     * Check if the general shape of this chart is intended to be circular.
+     *
+     * @return bool
+     */
     public function isCircular()
     {
         if ($this->type == ChartType::CT_PIE || $this->type == ChartType::CT_DOUGHNUT || $this->type == ChartType::CT_POLAR_AREA) {
@@ -414,12 +427,14 @@ class ChartBuilder
             self::KEY_DATA => $this->data,
             self::KEY_LABELS => $this->labels,
             self::KEY_LABEL => $this->label,
-            self::KEY_BORDER_COLOR => $this->bordercolor,
-            self::KEY_BACKGROUND_COLOR => $this->backgroundcolor,
+            self::KEY_BACKGROUND_COLOR => $this->backgroundColor,
+            self::KEY_BACKGROUND_OPACITY => $this->backgroundOpacity,
+            self::KEY_BORDER_COLOR => $this->borderColor,
+            self::KEY_BORDER_OPACITY => $this->borderOpacity,
+            self::KEY_BORDER_WIDTH => $this->borderWidth,
             'options' => $this->options,
             'height' => $this->height,
             'width' => $this->width,
-            'backgroundOpacity' => $this->backgroundOpacity,
             'datasetConfig' => $this->datasetConfig,
         ];
     }

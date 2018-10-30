@@ -1,5 +1,5 @@
 {% set configuration = {'chartjs.animation':'animation','chartjs.layout':'animation','chartjs.legend':'animation','chartjs.title':'animation'} %}
-$( document ).ready( function() {
+$(document).ready( function() {
 {% for keyc,config in configuration %}
     {% if  parameter(keyc) is not empty %}
         {% for key,data in parameter(keyc) %}

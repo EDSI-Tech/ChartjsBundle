@@ -29,13 +29,13 @@ class ChartjsController extends Controller
               'Profit' => array(23,45,65,12,34,45,88),
               'Cost' => array(13,34,54,11,34,35,48),
           ));
-          $grafica->setBackgroundcolor(
+          $grafica->setBackgroundColor(
               array(
                   ChartColor::aqua,
                   ChartColor::dark_green
               )
           );
-          $grafica->setBordercolor(
+          $grafica->setBorderColor(
                 array(
                     ChartColor::aqua,
                     ChartColor::dark_green
@@ -63,14 +63,14 @@ class ChartjsController extends Controller
                 'Ravenue'=> array(5,7,10,12,5,1,4),
 
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::aqua,
                 ChartColor::dark_green,
                 ChartColor::red
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::aqua,
                 ChartColor::dark_green,
@@ -115,13 +115,13 @@ class ChartjsController extends Controller
                 'Profit' => array(23,45,65,12,34,45,88),
                 'Cost' => array(13,34,54,11,34,35,48),
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::aqua,
                 ChartColor::dark_green
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::aqua,
                 ChartColor::dark_green
@@ -144,7 +144,7 @@ class ChartjsController extends Controller
             array(
                 'Profit' => array(23,45,65,12,34,45,88),
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::dark_violet,
                 ChartColor::dark_green,
@@ -155,7 +155,7 @@ class ChartjsController extends Controller
                 ChartColor::dark_orange
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::dark_violet,
                 ChartColor::dark_green,
@@ -182,13 +182,13 @@ class ChartjsController extends Controller
                 'Profit' => array(23,45,65,12,34,45,88),
                 'Cost' => array(13,34,54,11,34,35,48),
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::aqua,
                 ChartColor::red
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::aqua,
                 ChartColor::red
@@ -211,7 +211,7 @@ class ChartjsController extends Controller
             array(
                 'Profit' => array(23,45,65,12,34,45,88),
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::dark_violet,
                 ChartColor::dark_green,
@@ -222,7 +222,7 @@ class ChartjsController extends Controller
                 ChartColor::dark_orange
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::dark_violet,
                 ChartColor::dark_green,
@@ -248,12 +248,12 @@ class ChartjsController extends Controller
             array(
                 'Profit' => array(23,45,65,12,34,45,88),
              ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::red,
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::red,
             )
@@ -285,7 +285,7 @@ class ChartjsController extends Controller
             array(
                 'Profit' => array(23,45,65,12,34,45,88),
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::dark_violet,
                 ChartColor::dark_green,
@@ -296,7 +296,7 @@ class ChartjsController extends Controller
                 ChartColor::dark_orange
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::dark_violet,
                 ChartColor::dark_green,
@@ -324,13 +324,13 @@ class ChartjsController extends Controller
             array(
                 'Profit' => array(23,45,65,12,34,45,88),
             ));
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::red,
             )
         );
         $grafica->setDatasetConfig('fill: false');
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::red,
             )
@@ -354,12 +354,12 @@ class ChartjsController extends Controller
         $chartData->addDataset($grafica->toArray());
 
         $grafica->setType(ChartType::CT_BAR);
-        $grafica->setBackgroundcolor(
+        $grafica->setBackgroundColor(
             array(
                 ChartColor::blue,
             )
         );
-        $grafica->setBordercolor(
+        $grafica->setBorderColor(
             array(
                 ChartColor::blue,
             )
