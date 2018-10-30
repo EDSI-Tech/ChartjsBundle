@@ -91,10 +91,14 @@ class ChartBuilder
 
     /**
      * @param $domId
+     *
+     * @return $this
      */
     public function setId($domId)
     {
         $this->id = $domId;
+
+        return $this;
     }
 
     /**
