@@ -55,13 +55,13 @@ class ChartBuilder
     /** @var array */
     protected $backgroundColor;
 
-    /** @var int */
+    /** @var float */
     protected $backgroundOpacity;  // TODO: support array
 
     /** @var array */
     protected $borderColor;
 
-    /** @var array */
+    /** @var float */
     protected $borderOpacity;  // TODO: support array
 
     /** @var int */
@@ -76,17 +76,23 @@ class ChartBuilder
     /** @var string */
     protected $color;
 
+
     /**
      * ChartBuilderData constructor.
+     *
+     * @param string $domId
+     * @param string $height
+     * @param string $width
      */
-    public function __construct()
+    public function __construct($domId = "myChart", $height = ChartBuilder::HEIGHT, $width = ChartBuilder::WIDTH)
     {
-        $this->id = "myChart";
-        $this->height = ChartBuilder::HEIGHT;
-        $this->width = ChartBuilder::WIDTH;
-        $this->backgroundOpacity = 0.2;
-        $this->borderOpacity = 1;
+        $this->id = $domId;
+        $this->height = $height;
+        $this->width = $width;
+
+        $this->backgroundOpacity = 0.5;
         $this->borderWidth = 1;
+        $this->borderOpacity = 1;
     }
 
     /**
@@ -258,19 +264,19 @@ class ChartBuilder
     }
 
     /**
-     * @param array $backgroundColor
+     * @param array $color
      *
      * @return $this
      */
-    public function setBackgroundColor($backgroundColor)
+    public function setBackgroundColor($color)
     {
-        $this->backgroundColor = $backgroundColor;
+        $this->backgroundColor = $color;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getBackgroundOpacity()
     {
@@ -278,13 +284,13 @@ class ChartBuilder
     }
 
     /**
-     * @param int $backgroundOpacity
+     * @param float $opacity
      *
      * @return $this
      */
-    public function setBackgroundOpacity($backgroundOpacity)
+    public function setBackgroundOpacity($opacity)
     {
-        $this->backgroundOpacity = $backgroundOpacity;
+        $this->backgroundOpacity = (float)$this->clip($opacity, 0, 1);
 
         return $this;
     }
@@ -298,13 +304,33 @@ class ChartBuilder
     }
 
     /**
-     * @param array $borderColor
+     * @param array $color
      *
      * @return $this
      */
-    public function setBorderColor($borderColor)
+    public function setBorderColor($color)
     {
-        $this->borderColor = $borderColor;
+        $this->borderColor = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBorderOpacity()
+    {
+        return $this->borderColor;
+    }
+
+    /**
+     * @param float $opacity
+     *
+     * @return $this
+     */
+    public function setBorderOpacity($opacity)
+    {
+        $this->borderColor = (float)$this->clip($opacity, 0, 1);
 
         return $this;
     }
@@ -443,5 +469,18 @@ class ChartBuilder
         ];
     }
 
+    /**
+     * @param     $ratio
+     * @param int $min
+     * @param int $max
+     *
+     * @return mixed
+     */
+    protected function clip($ratio, $min = 0, $max = 1)
+    {
+        $ratio = max($min, $ratio);
+        $ratio = min($ratio, $max);
+        return $ratio;
+    }
 
 }
