@@ -316,11 +316,11 @@ class ChartBuilder
     }
 
     /**
-     * @return array
+     * @return float
      */
     public function getBorderOpacity()
     {
-        return $this->borderColor;
+        return $this->borderOpacity;
     }
 
     /**
@@ -330,7 +330,7 @@ class ChartBuilder
      */
     public function setBorderOpacity($opacity)
     {
-        $this->borderColor = (float)$this->clip($opacity, 0, 1);
+        $this->borderOpacity = (float)$this->clip($opacity, 0, 1);
 
         return $this;
     }
