@@ -2,14 +2,17 @@
 
 namespace fados\ChartjsBundle\Model\Transformer;
 
+use fados\ChartjsBundle\Utils\ChartType;
+
 /**
  * Transform data to chart specific format
- * @param TypeCharjs $type
- * @param array $data
- * @param string $fieldLabels
- * @param $fieldKpi
- * @param $options
- * @param $fieldData
+ *
+ * @param ChartType $type
+ * @param array     $data
+ * @param string    $fieldLabels
+ * @param           $fieldKpi
+ * @param           $options
+ * @param           $fieldData
  *
  * Sample:
  * $type => TypeCharjs::CHARJS_BAR
@@ -62,10 +65,9 @@ namespace fados\ChartjsBundle\Model\Transformer;
       },
  *
  * @return array $result
-
-  *
-  */
+ *
+ */
 interface TransformerInterface
 {
-    public function transform($type,$data,$fieldLabels,$fieldKpi,$options,$fieldData);
+    public function transform($type, $data, $fieldLabels, $fieldKpi, $options, $fieldData);
 }

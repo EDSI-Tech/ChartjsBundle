@@ -1,3 +1,3 @@
 {% spaceless %}
-    <canvas id='{{ graphic.id }}' style="width:{{ graphic.width }};height:{{ graphic.height }}"></canvas>
+    <canvas id='{{ graphic.getId }}'{% if graphic.getHeight %} height="{{ graphic.height }}"{% endif %}{% if graphic.getWidth %}width="{{ graphic.getWidth }}"{% endif %}{% if graphic.getCanvasDataAttributes is defined %}{% for dattr, dvalue in graphic.getCanvasDataAttributes %}data-{{  dattr}}="{{ dvalue }}"{% endfor %}{% endif %}></canvas>
 {% endspaceless %}

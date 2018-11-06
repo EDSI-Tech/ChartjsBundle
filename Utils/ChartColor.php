@@ -151,7 +151,7 @@ class ChartColor implements \Countable
     const white_smoke = '245,245,245';
     const white = '255,255,255';
 
-    private $colors = array(
+    private static $colors = array(
         ChartColor::maroon,
         ChartColor::dark_red,
         ChartColor::brown,
@@ -292,14 +292,19 @@ class ChartColor implements \Countable
         ChartColor::white_smoke,
         ChartColor::white);
 
-    public function getColor($color)
+    public static function getColor($color)
     {
-        return $this->colors[$color];
+        return self::$colors[$color];
     }
 
     public function count()
     {
-        return sizeof($this->colors);
+        return sizeof(self::$colors);
+    }
+
+    public static function toColor($chartColor, $opacity = 1)
+    {
+        return "rgba(" . $chartColor . ", " . $opacity . ")";
     }
 
 }
