@@ -30,6 +30,9 @@ class Chart implements \JsonSerializable
     /** @var array */
     protected $options;
 
+    /** @var array */
+    private $rawOptions;
+
     /**
      * Chart constructor.
      *
@@ -40,6 +43,7 @@ class Chart implements \JsonSerializable
         $this->canvasDataAttributes = array();
         $this->datasets = array();
         $this->options = array();
+        $this->rawOptions = array();
     }
 
     /**
@@ -219,7 +223,7 @@ class Chart implements \JsonSerializable
     }
 
     /**
-     * @param array $options
+     * @param array|string $options
      *
      * @return $this
      */
@@ -245,6 +249,33 @@ class Chart implements \JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getRawOptions()
+    {
+        $chartOptions = "";
+        if ($rawOptions = $this->rawOptions) {
+            foreach ($rawOptions as $rawOption) {
+                $chartOptions .= $rawOption . ', ';
+            }
+            $chartOptions = substr($chartOptions, 0, -2);  // remove last ', '
+        }
+        return "{" . $chartOptions . "}";
+    }
+
+    /**
+     * @param string $rawOption
+     *
+     * @return $this
+     */
+    public function addRawOption($rawOption)
+    {
+        $this->rawOptions[] = $rawOption;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getData()
@@ -258,6 +289,32 @@ class Chart implements \JsonSerializable
         }
         $chartData['datasets'] = $this->datasets;
         return $chartData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsonOptions()
+    {
+        $chartOptions = "";
+        if ($options = $this->getOptions()) {
+            $chartOptions = json_encode($options);
+            if ($rawOptions = $this->rawOptions) {
+                $chartOptions = substr($chartOptions, 1);  // remove opening '}'
+                $chartOptions = substr($chartOptions, 0, -1);  // remove closing '}'
+                $chartOptions .= ', ';
+            } else {
+                return $chartOptions;
+            }
+        }
+        if ($rawOptions = $this->rawOptions) {
+            foreach ($rawOptions as $rawOption) {
+                $chartOptions .= $rawOption . ', ';
+            }
+            $chartOptions = substr($chartOptions, 0, -2);  // remove last ', '
+            return "{" . $chartOptions . "}";
+        }
+        return "{}";
     }
 
     /**
@@ -290,7 +347,13 @@ class Chart implements \JsonSerializable
         $chart['data'] = $this->getData();
 
         // Options
-        $chart['options'] = $this->getOptions();
+        if ($options = $this->getOptions()) {
+            $chart['options'] = $options;
+        } elseif ($rawOptions = $this->getRawOptions()) {
+            $chart['options'] = $rawOptions;
+        } else {
+            $chart['options'] = array();
+        }
         return $chart;
     }
 
