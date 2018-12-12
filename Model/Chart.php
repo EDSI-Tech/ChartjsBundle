@@ -237,6 +237,16 @@ class Chart implements \JsonSerializable
     /**
      * @param $option
      *
+     * @return mixed
+     */
+    public function getOption($option)
+    {
+        return $this->options[$option];
+    }
+
+    /**
+     * @param $option
+     *
      * @param $value
      *
      * @return $this
