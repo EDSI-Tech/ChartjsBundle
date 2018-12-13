@@ -35,6 +35,9 @@ class Dataset implements \JsonSerializable, \Countable
     /** @var array */
     protected $data;
 
+    /** @var mixed */
+    protected $fill;
+
     /** @var */
     protected $backgroundColor;
 
@@ -51,6 +54,26 @@ class Dataset implements \JsonSerializable, \Countable
     protected $borderWidth;
 
     /**
+     * Dataset constructor.
+     *
+     * @param null $label
+     * @param null $type
+     */
+    public function __construct($label = null, $type = null)
+    {
+        $this->label = $label;
+        $this->type = $type;
+    }
+
+    /**
+     * @return ChartType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * @param ChartType $type
      *
      * @return $this
@@ -59,6 +82,22 @@ class Dataset implements \JsonSerializable, \Countable
     {
         $this->type = $type;
 
+        return $this;
+    }
+
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param $label
+     *
+     * @return $this
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
         return $this;
     }
 
@@ -92,6 +131,25 @@ class Dataset implements \JsonSerializable, \Countable
     {
         $this->data[] = $data;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFill()
+    {
+        return $this->fill;
+    }
+
+    /**
+     * @param $fill
+     *
+     * @return $this
+     */
+    public function setFill($fill)
+    {
+        $this->fill = $fill;
         return $this;
     }
 
@@ -220,12 +278,19 @@ class Dataset implements \JsonSerializable, \Countable
     public function jsonSerialize()
     {
         $dataset = array();
-        $fields = array('label', 'data', 'borderWidth');
+
+        $fields = array('type', 'label', 'borderWidth', 'data');
         foreach ($fields as $field) {
             if ($this->{$field}) {
                 $dataset[$field] = $this->{$field};
             }
         }
+
+        // Special case for 'fill', as `false` is a valid value
+        if (!is_null($this->fill)) {
+            $dataset['fill'] = $this->fill;
+        }
+
         $colorFields = array('background', 'border');
         foreach ($colorFields as $field) {
             $field .= 'Color';
@@ -239,6 +304,7 @@ class Dataset implements \JsonSerializable, \Countable
                 }
             }
         }
+
         return $dataset;
     }
 
