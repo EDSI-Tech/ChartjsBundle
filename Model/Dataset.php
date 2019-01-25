@@ -33,19 +33,19 @@ class Dataset implements \JsonSerializable, \Countable
     protected $label;
 
     /** @var array */
-    protected $data;
+    protected $data = array();
 
     /** @var */
-    protected $backgroundColor;
+    protected $backgroundColor = array();
 
     /** @var */
-    protected $backgroundOpacity;
+    protected $backgroundOpacity = array();
 
     /** @var */
-    protected $borderColor;
+    protected $borderColor = array();
 
     /** @var */
-    protected $borderOpacity;
+    protected $borderOpacity = array();
 
     /** @var int */
     protected $borderWidth;
@@ -116,7 +116,18 @@ class Dataset implements \JsonSerializable, \Countable
     }
 
     /**
-     * @return float
+     * @param ChartColor $color
+     *
+     * @return $this
+     */
+    public function addBackgroundColor($color)
+    {
+        $this->addTo($this->backgroundColor, $color);
+        return $this;
+    }
+
+    /**
+     * @return array|float
      */
     public function getBackgroundOpacity()
     {
@@ -130,15 +141,51 @@ class Dataset implements \JsonSerializable, \Countable
      */
     public function setBackgroundOpacity($opacity)
     {
-        $this->backgroundOpacity = (float)$this->clip($opacity, 0, 1);
+        $this->setOpacity($this->backgroundOpacity, $opacity);
 
+        return $this;
+    }
+
+    /**
+     * @param float $opacity
+     *
+     * @return $this
+     */
+    public function addBackgroundOpacity($opacity)
+    {
+        $this->addTo($this->backgroundOpacity, (float)$this->clip($opacity, 0, 1));
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBackgroundColorOpacity()
+    {
+        return $this->getColorOpacity($this->getBackgroundColor(), $this->getBackgroundOpacity());
+    }
+
+
+    /**
+     * Helper to set both at the same time
+     *
+     * @param       $color
+     * @param float $opacity
+     *
+     * @return $this
+     */
+    public function addBackgroundColorOpacity($color, $opacity)
+    {
+        assert(count($this->getBackgroundColor()) == count($this->getBackgroundOpacity()));
+        $this->addBackgroundColor($color);
+        $this->addBackgroundOpacity($opacity);
         return $this;
     }
 
     /**
      * @return array|ChartColor
      */
-    public function gettBorderColor()
+    public function getBorderColor()
     {
         return $this->borderColor;
     }
@@ -156,7 +203,18 @@ class Dataset implements \JsonSerializable, \Countable
     }
 
     /**
-     * @return float
+     * @param ChartColor $color
+     *
+     * @return $this
+     */
+    public function addBorderColor($color)
+    {
+        $this->addTo($this->borderColor, $color);
+        return $this;
+    }
+
+    /**
+     * @return array|float
      */
     public function getBorderOpacity()
     {
@@ -164,14 +222,49 @@ class Dataset implements \JsonSerializable, \Countable
     }
 
     /**
-     * @param float $opacity
+     * @param array|float $opacity
      *
      * @return $this
      */
     public function setBorderOpacity($opacity)
     {
-        $this->borderOpacity = (float)$this->clip($opacity, 0, 1);
+        $this->setOpacity($this->borderOpacity, $opacity);
 
+        return $this;
+    }
+
+    /**
+     * @param $opacity
+     *
+     * @return $this
+     */
+    public function addBorderOpacity($opacity)
+    {
+        $this->addTo($this->borderOpacity, (float)$this->clip($opacity, 0, 1));
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBorderColorOpacity()
+    {
+        return $this->getColorOpacity($this->getBorderColor(), $this->getBorderOpacity());
+    }
+
+    /**
+     * Helper to set both at the same time
+     *
+     * @param       $color
+     * @param float $opacity
+     *
+     * @return Dataset
+     */
+    public function addBorderColorOpacity($color, $opacity)
+    {
+        assert(count($this->getBorderColor()) == count($this->getBorderOpacity()));
+        $this->addBorderColor($color);
+        $this->addBorderOpacity($opacity);
         return $this;
     }
 
@@ -228,14 +321,12 @@ class Dataset implements \JsonSerializable, \Countable
         }
         $colorFields = array('background', 'border');
         foreach ($colorFields as $field) {
-            $field .= 'Color';
-            $colors = $this->{$field};
-            if ($this->{$field}) {
-                if (!is_array($colors)) {
-                    $colors = array($colors);
-                }
-                foreach ($colors as $color) {
-                    $dataset[$field][] = ChartColor::toColor($color);
+            $fieldColor = $field . 'Color';
+            $fieldOpacity = $field . 'Opacity';
+            if ($colors = $this->{$fieldColor}) {
+                $colorsOpacities = $this->getColorOpacity($colors, $this->{$fieldOpacity});
+                foreach ($colorsOpacities as $colorsOpacity) {
+                    $dataset[$fieldColor][] = ChartColor::toColor($colorsOpacity[0], $colorsOpacity[1]);
                 }
             }
         }
@@ -248,6 +339,57 @@ class Dataset implements \JsonSerializable, \Countable
     public function toJson()
     {
         return json_encode($this->jsonSerialize());
+    }
+
+    /**
+     * If the field is not yet an array, it will be converted.
+     *
+     * @param       $field
+     * @param mixed $value
+     */
+    protected function addTo(&$field, $value)
+    {
+        $field = (array)$field;
+        $field[] = $value;
+    }
+
+    /**
+     * @param       $field
+     * @param float $opacity
+     */
+    protected function setOpacity(&$field, $opacity)
+    {
+        $opacities = (array)$opacity;
+        $clipped = array();
+        foreach ($opacities as $opacity) {
+            $clipped[] = (float)$this->clip($opacity, 0, 1);
+        }
+        $field = $clipped;
+    }
+
+    /**
+     * @param array|ChartColor $colors
+     * @param array|float      $opacities
+     *
+     * @param float            $defaultOpacity
+     *
+     * @return array
+     */
+    protected function getColorOpacity($colors, $opacities, $defaultOpacity = 1.0)
+    {
+        $colors = (array)$colors;
+        $opacities = (array)$opacities;
+        if (count($opacities) > 1) {
+            assert(count($colors) == count($opacities));
+        } else {
+            $opacity = reset($opacities) ?: $defaultOpacity;
+            $opacities = array_fill(0, count($colors), $opacity);
+        }
+        $combined = array();
+        foreach ($colors as $index => $color) {
+            $combined[] = array($color, $opacities[$index]);
+        }
+        return $combined;
     }
 
 }
