@@ -36,8 +36,9 @@ class Chart implements \JsonSerializable
     /**
      * Chart constructor.
      *
+     * @param string $domId
      */
-    public function __construct($domId = "my-chart")
+    public function __construct($domId = "chart")
     {
         $this->canvasAttributes = array('id' => htmlspecialchars(trim($domId)));
         $this->canvasDataAttributes = array();
