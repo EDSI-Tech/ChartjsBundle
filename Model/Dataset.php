@@ -390,9 +390,15 @@ class Dataset implements \JsonSerializable, \Countable
             $fieldOpacity = $field . 'Opacity';
             if ($colors = $this->{$fieldColor}) {
                 $colorsOpacities = $this->getColorOpacity($colors, $this->{$fieldOpacity});
+                $renderedColors = array();
                 foreach ($colorsOpacities as $colorsOpacity) {
-                    $dataset[$fieldColor][] = ChartColor::toColor($colorsOpacity[0], $colorsOpacity[1]);
+                    $renderedColors[] = ChartColor::toColor($colorsOpacity[0], $colorsOpacity[1]);
                 }
+                if (count($renderedColors) == 1 ){
+                    // Normalize to single value instead of array
+                    $renderedColors = $renderedColors[0];
+                }
+                $dataset[$fieldColor] = $renderedColors;
             }
         }
 
