@@ -5,6 +5,11 @@ Symfony Bundle that simplifies the usage of [Chart.js 2.7.3](http://www.chartjs.
 
 ## How to use it
 
+Requirements
+------------
+
+* [Chart.js](http://www.chartjs.org/)
+
 Install
 -------
 ```
@@ -55,7 +60,7 @@ chartjs:
 ```
 This configuration is for the global [configuration of Chartjs](http://www.chartjs.org/docs/latest/configuration/).
 
-Register the routing in `app/config/routing.yml`:
+To view the test/demo charts, register the routing in `app/config/routing.yml`:
 
 ``` yml
 # app/config/routing.yml
@@ -67,9 +72,9 @@ The routing file only have Charts samples
 
 http://localhost/xxx/web/app_dev.php/testchart/mainTest
 
-Publish the assets:
+Publish the assets, for example:
 
-$ php app/console assets:install web
+    $ php app/console assets:install web
 
 Add the required stylesheet and javascripts to your layout:
 
@@ -134,9 +139,12 @@ Sample:
 Controller will be:
 
 ```
+use fados\ChartjsBundle\Model\Chart;
+use fados\ChartjsBundle\Utils\ChartType;
+
  public function barAction()   {
-        $grafica = new ChartBuilderData();
-        $grafica->setType(TypeCharjs::CHARJS_BAR);
+        $grafica = new Chart();
+        $grafica->setType(ChartType::CT_BAR);
         $grafica->setLabels(array('Barcelona','New York','Londres','Paris','Berlin','Tokio','El Cairo'));
         $grafica->setData(
           array(
@@ -165,103 +173,8 @@ Controller will be:
 
 There are a couple of help classes related to colors and Charts type:
 
-ChartsType: Define the Charts that you can render:
-```  
-    CHARJS_BAR = 'bar';
-    CHARJS_HORIZONTALBAR = 'horizontalBar';
-    CHARJS_RADAR = 'radar';
-    CHARJS_LINE = 'line';
-    CHARJS_PIE = 'pie';
-    CHARJS_DOUGHNUT = 'doughnut';
-    CHARJS_POLAR_AREA = 'polarArea';
-```
-TypeColors: Define colors, over 250
-``` 
- maroon = '128,0,0';
-	dark_red = '139,0,0';
-	brown = '165,42,42';
-	firebrick = '178,34,34';
-	crimson = '220,20,60';
-	red = '255,0,0';
-	tomato = '255,99,71';
-	coral = '255,127,80';
-	indian_red = '205,92,92';
-	light_coral = '240,128,128';
-	dark_salmon = '233,150,122';
-	salmon = '250,128,114';
-	light_salmon = '255,160,122';
-	orange_red = '255,69,0';
-	dark_orange = '255,140,0';
-	orange = '255,165,0';
-	gold = '255,215,0';
- ...
-```
-
-You Could build this array by hand or using a service transformer $grafica = $this->get('app.chartjs.transformer_char'), this service, transform database data to an Array data, prepared to be rendered by Chart.js:
-
-```
-public function transform($type,$data,$fieldLabels,$fieldKpi,$options,$fieldData);
-```
-Sample:
-
-```
-$grafica = $this->get('app.chartjs.transformer_char')->transform(TypeCharjs::CHARJS_PIE,$data,'kpi','zone',$options,'average')->toArray();
-```
-This service has several parameters:
-
-Type of chart: 
-$type => TypeCharjs::CHARJS_BAR (use fados\ChartjsBundle\Utils\TypeCharjs;)
-
-Database Data 
-```
-$data=>
-       0 = {array} [4]
-           zone = "Europe"
-           kpi = "Number of NIUs"
-           average = "1250"
-       1 = {array} [4]
-           zone = "Asia"
-           kpi = "Number of NIUs"
-           average = "1225"
-       2 = {array} [4]
-           zone = "Africa"
-           kpi = "Number of NIUs"
-           average = "1235"
-       }
-```
-Labels in the Chrart:
-```
-$fieldLabels => 'zone'
-```
-Indicator field:
-```
-$fieldKpi => 'kpi'
-```
-
-Value Field:
-```
-$fieldData => 'average'
-```
-Chartjs options:
-
-```
-$options => graphic options
-```
- This transform will converto to this structure of array:
-
-```
-         $result {array} [2]
-              labels = {array}[3]
-                         [0] = Europe
-                         [1] = Asia
-                         [2] = Africa
-              data  = {array}[1]
-                   Number of NIUs = {array}[3]
-                          [0] = 1250
-                          [1] = 1225
-                          [2] = 1235
-
-```
+* ChartType: Define the Charts that you can render:
+* ChartColor: Define colors, over 250
 
 ## Twig sample
 ```

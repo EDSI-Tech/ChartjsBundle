@@ -7,7 +7,15 @@ use fados\ChartjsBundle\Utils\ChartType;
 class Chart implements \JsonSerializable
 {
 
+    const KEY_ID = 'id';
+    const KEY_TITLE = 'title';
+    const KEY_TYPE = 'type';
     const KEY_LABELS = 'labels';
+    const KEY_DATA = 'data';
+    const KEY_DATASETS = 'datasets';
+    const KEY_WIDTH = 'width';
+    const KEY_HEIGHT = 'height';
+    const KEY_OPTIONS = 'options';
 
     /** @var array */
     protected $canvasAttributes;
@@ -40,7 +48,7 @@ class Chart implements \JsonSerializable
      */
     public function __construct($domId = "chart")
     {
-        $this->canvasAttributes = array('id' => htmlspecialchars(trim($domId)));
+        $this->canvasAttributes = array(self::KEY_ID => htmlspecialchars(trim($domId)));
         $this->canvasDataAttributes = array();
         $this->datasets = array();
         $this->options = array();
@@ -52,7 +60,7 @@ class Chart implements \JsonSerializable
      */
     public function getId()
     {
-        return $this->canvasAttributes['id'];
+        return $this->canvasAttributes[self::KEY_ID];
     }
 
     /**
@@ -62,7 +70,7 @@ class Chart implements \JsonSerializable
      */
     public function setId($id)
     {
-        $this->canvasAttributes['id'] = $id;
+        $this->canvasAttributes[self::KEY_ID] = $id;
 
         return $this;
     }
@@ -72,8 +80,8 @@ class Chart implements \JsonSerializable
      */
     public function getWidth()
     {
-        if (array_key_exists('width', $this->canvasAttributes)) {
-            return $this->canvasAttributes['width'];
+        if (array_key_exists(self::KEY_WIDTH, $this->canvasAttributes)) {
+            return $this->canvasAttributes[self::KEY_WIDTH];
         }
         return null;
     }
@@ -83,7 +91,7 @@ class Chart implements \JsonSerializable
      */
     public function setWidth($width)
     {
-        $this->canvasAttributes['width'] = htmlspecialchars(trim($width));
+        $this->canvasAttributes[self::KEY_WIDTH] = htmlspecialchars(trim($width));
     }
 
     /**
@@ -91,8 +99,8 @@ class Chart implements \JsonSerializable
      */
     public function getHeight()
     {
-        if (array_key_exists('height', $this->canvasAttributes)) {
-            return $this->canvasAttributes['height'];
+        if (array_key_exists(self::KEY_HEIGHT, $this->canvasAttributes)) {
+            return $this->canvasAttributes[self::KEY_HEIGHT];
         }
         return null;
     }
@@ -102,7 +110,7 @@ class Chart implements \JsonSerializable
      */
     public function setHeight($height)
     {
-        $this->canvasAttributes['height'] = htmlspecialchars(trim($height));
+        $this->canvasAttributes[self::KEY_HEIGHT] = htmlspecialchars(trim($height));
     }
 
     /**
@@ -214,7 +222,7 @@ class Chart implements \JsonSerializable
         $chartOptions = array();
         if (!empty($this->title) || !empty($this->options)) {
             if ($this->title) {
-                $chartOptions['title'] = array(
+                $chartOptions[self::KEY_TITLE] = array(
                     'display' => true,
                     'text' => $this->title);
             }
@@ -292,13 +300,13 @@ class Chart implements \JsonSerializable
     public function getData()
     {
         $chartData = array();
-        $dataFields = array('labels');
+        $dataFields = array(self::KEY_LABELS);
         foreach ($dataFields as $field) {
             if ($this->{$field}) {
                 $chartData[$field] = $this->{$field};
             }
         }
-        $chartData['datasets'] = $this->datasets;
+        $chartData[self::KEY_DATASETS] = $this->datasets;
         return $chartData;
     }
 
@@ -347,7 +355,7 @@ class Chart implements \JsonSerializable
     public function jsonSerialize()
     {
         $chart = array();
-        $fields = array('type');
+        $fields = array(self::KEY_TYPE);
         foreach ($fields as $field) {
             if ($this->{$field}) {
                 $chart[$field] = $this->{$field};
@@ -355,15 +363,15 @@ class Chart implements \JsonSerializable
         }
 
         // Data
-        $chart['data'] = $this->getData();
+        $chart[self::KEY_DATA] = $this->getData();
 
         // Options
         if ($options = $this->getOptions()) {
-            $chart['options'] = $options;
+            $chart[self::KEY_OPTIONS] = $options;
         } elseif ($rawOptions = $this->getRawOptions()) {
-            $chart['options'] = $rawOptions;
+            $chart[self::KEY_OPTIONS] = $rawOptions;
         } else {
-            $chart['options'] = array();
+            $chart[self::KEY_OPTIONS] = array();
         }
         return $chart;
     }
